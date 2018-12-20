@@ -45,9 +45,22 @@ $ sudo certbot --nginx
 
 ## Checklist
 
+- [ ] Install [pageSpeed module](https://www.modpagespeed.com/doc/configuration)
 - [ ] Setup Reverse proxy
 - [ ] Install ssl credentials
-- [ ] Turn on gzip compression: `gzip on` in `nginx.conf`
+- [ ] enable gzip compression, as in `server-configs-nginx/nginx.conf`
+- [ ] Check [gzip compression](https://checkgzipcompression.com) and perform [loadtest](https://loadtestertool.com)
+
+```init
+...
+http{
+...
+  # Enable gzip compression.
+  include h5bp/web_performance/compression.conf;
+}
+...
+```
+
 - [ ] Add pagespeed module and other module that improves site performance
 
 ## Important Nginx Files and Directories
@@ -59,6 +72,8 @@ $ sudo certbot --nginx
 ### Server Configuration
 
 By default, the configuration file is named nginx.conf and placed in the directory `/usr/local/nginx/conf`, `/etc/nginx`, or `/usr/local/etc/nginx`.
+
+**NOTE: When adding new modules/recompling nginx, be careful about the installation path; pass configuration settings from `nginx -V` output; when asking whether to use existing binary file, choose `NO`**
 
 `/etc/nginx`: The Nginx configuration directory. All of the Nginx configuration files reside here.
 
@@ -114,12 +129,40 @@ To re-enable the service to start up at boot, you can type:
 sudo systemctl enable nginx
 ```
 
+To check on `nginx.conf` settings
+
+```bash
+sudo service nginx configtest
+```
+
+Starting, Stopping, and Reloading Configuration
+
+```bash
+nginx -s signal
+```
+
+Where signal may be one of the following:
+
+```bash
+stop — fast shutdown
+quit — graceful shutdown
+reload — reloading the configuration file
+reopen — reopening the log files
+```
+
+Listing nginx processes
+
+```bash
+ps -ax | grep nginx
+```
+
 ## Refrence
 
 1. [Compiling Third-Party Modules Into Nginx](https://serversforhackers.com/c/compiling-third-party-modules-into-nginx)
-1. [PageSpeed Configuration](https://www.modpagespeed.com/doc/configuration)
-1. [Check Gzip Compression](https://checkgzipcompression.com/)
-1. [Route 53 Record Set on Different Port](https://stackoverflow.com/questions/19349287/route-53-record-set-on-different-port)
-1. [What is Reverse Proxy](https://www.cloudflare.com/learning/cdn/glossary/reverse-proxy/)
-1. [How to Install an SSL Certificate](https://sucuri.net/guides/how-to-install-ssl-certificate)
-1. [Redirect HTTP Requests to HTTPS with NGINX](https://bjornjohansen.no/redirect-to-https-with-nginx)
+2. [PageSpeed Configuration](https://www.modpagespeed.com/doc/configuration)
+3. [Check Gzip Compression](https://checkgzipcompression.com/)
+4. [Route 53 Record Set on Different Port](https://stackoverflow.com/questions/19349287/route-53-record-set-on-different-port)
+5. [What is Reverse Proxy](https://www.cloudflare.com/learning/cdn/glossary/reverse-proxy/)
+6. [How to Install an SSL Certificate](https://sucuri.net/guides/how-to-install-ssl-certificate)
+7. [Redirect HTTP Requests to HTTPS with NGINX](https://bjornjohansen.no/redirect-to-https-with-nginx)
+8. [JavaScript Start-up Optimization](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/javascript-startup-optimization/)
