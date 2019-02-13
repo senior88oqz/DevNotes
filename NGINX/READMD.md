@@ -156,6 +156,16 @@ Listing nginx processes
 ps -ax | grep nginx
 ```
 
+## Debugging
+
+1. To troubleshoot why CSS is not minified, you can use the standalone binary css_minify_main. It's shipped with mod_pagespeed, so [build it from source](https://www.modpagespeed.com/doc/build_mod_pagespeed_from_source#debug-css) and then run:
+
+```bash
+  ./out/Release/css_minify_main FILENAME.css > REWRITTEN.css
+```
+
+1. HTTPS resources can currently only be rewritten if they are origin-mapped or loaded from directly from the file-system. See [HTTPS support](https://www.modpagespeed.com/doc/https_support)
+
 ## Refrence
 
 1. [Compiling Third-Party Modules Into Nginx](https://serversforhackers.com/c/compiling-third-party-modules-into-nginx)
@@ -166,3 +176,5 @@ ps -ax | grep nginx
 6. [How to Install an SSL Certificate](https://sucuri.net/guides/how-to-install-ssl-certificate)
 7. [Redirect HTTP Requests to HTTPS with NGINX](https://bjornjohansen.no/redirect-to-https-with-nginx)
 8. [JavaScript Start-up Optimization](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/javascript-startup-optimization/)
+9. [Build NGINX with PageSpeed From Source](https://www.linode.com/docs/web-servers/nginx/build-nginx-with-pagespeed-from-source/)
+10. [Pagespeed FAQ](https://www.modpagespeed.com/doc/faq#not-rewriting)
