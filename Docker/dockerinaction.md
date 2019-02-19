@@ -1,7 +1,5 @@
 # Docker in Action
 
-## Image vs Container
-
 ## Docker Ecosystem
 
 * Container Orchestration : Kubernetes
