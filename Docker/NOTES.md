@@ -2,6 +2,22 @@
 
 ## Image (`docker run`) vs Container (`docker create`)
 
+**TL;DR**
+
+* Remove all intermediate docker images after build
+
+```bash
+docker image rm $(docker image list -f "dangling=true" -qa)
+```
+
+* Delete exited containers
+
+```bash
+# -v Remove the volumes associated with the container
+# -f Filter output based on conditions provided
+docker rm -v $(docker ps -a -q -f status=exited)
+```
+
 //TODO
 
 ## Work with Storage and Volume
@@ -92,6 +108,8 @@ volume_name
 # To checkout a volume
 docker volume inspect volume_name
 ```
+
+**Note** :  There may be permission issues if the volume is created by differernt users.
 
 * Create anonymous volumes
 
