@@ -26,3 +26,40 @@ e5790991a29a        host                host                local
 
 ## Bridge Network
 
+Bridge networks are typically great for single server deployments like a LAMP stack running a content management system, or most local development tasks.
+
+Underlay/Overlay network is suitable when running a multi-server environment that is designed to tolerate machine failure then you need to be able to seamlessly route traffic between containers on different machines.
+
+* Underlay(i.e., macvlan or ipvlan network drivers in linux server) networks create first-class network addresses for each container. Those identities are discoverable and routable from the same network where the host is attached.
+* Underlay network configuration is dependent on the host network and so definitions are rarely portable.
+* Overlay network driver is available on Docker engines where *Swarm* mode is enabled.
+* Overlay networks are similar in construction to bridge networks, but the logical bridge component is multi-host aware and can route inter-container connections between every node in a *Swarm*.
+* Just like on a bridge network, containers on an overlay network are not directly routable from *outside* of the cluster. But, *inter-container* communication is simple and network definitions are mostly independent of the host network environment.
+
+**TL;DR** :
+
+* Create a bridge network
+
+```bash
+docker network create \
+--driver bridge \
+--label key1=value1 \
+--label key2=value2 \
+--attachable \
+--scope local \
+--subnet 10.0.42.0/24 \
+--ip-range 10.0.42.128/25 \
+user-network
+```
+
+* Attach network with `--network` or `docker network connect`
+
+```bash
+docker run --network network-name image-name
+```
+
+```bash
+docker network connect \
+network-name(or ID) \
+target-container-name(or ID)
+```

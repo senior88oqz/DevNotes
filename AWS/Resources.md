@@ -22,3 +22,4 @@ CROPS
 ## Reference
 
 [AWS Mnemonics: Simple Flash Cards](https://awsnewbies.com/aws-mnemonics/)
+[AWS Setup for Commit](https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-ssh-unixes.html?icmpid=docs_acc_console_connect)

@@ -24,3 +24,12 @@ git branch --delete --force <branch_name>  //same as -D
 # 3
 git branch --delete  <branch_name>         //error on unmerge
 ```
+
+** ssh agent
+
+```bash
+# start ssh agent
+eval `ssh-agent -s`
+# add key to gent
+ssh-add ~/.ssh/id_rsa
+```
