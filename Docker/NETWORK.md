@@ -55,7 +55,7 @@ user-network
 * Attach network with `--network` or `docker network connect`
 
 ```bash
-docker run --network network-name image-name
+docker run --network network-name [--ip static-ip] image-name
 ```
 
 ```bash
@@ -63,3 +63,61 @@ docker network connect \
 network-name(or ID) \
 target-container-name(or ID)
 ```
+
+## Host & None Network
+
+***These are not really networks, instead they are network attachment types with special meaning.***
+
+Running on the *host network* is useful for *system services* or other *infrastructure components*.
+
+But it is **NOT** appropriate in multi-tenant environments and should be disallowed for third-party
+containers.
+
+Use None network when specifically do not want to attach a container to a network. Building systems of least privilege you should use the **"none"** network whenever possible.
+
+Containers on the none network are isolated from each other and the rest of the world, but remember that even containers on the bridge network are not directly routable from outside of
+the host running the Docker engine.
+
+**TL;DR** :
+
+* Running containers on host network
+
+```bash
+docker run --rm \
+--network host \
+image-name
+```
+
+* Running containers on note network
+
+```bash
+docker run --rm \
+--network none \
+image-name
+```
+
+* Inspect container network
+
+```bash
+docker inspect container-name -f "{{json .NetworkSettings.Networks }}"
+```
+
+* Inspect port mappings
+
+```bash
+docker port container-name container-port
+# 0.0.0.0:32769 : host port mapped to container port
+```
+
+* Manipulate `/etc/hosts` of a container
+
+```bash
+docker run --rm \
+--hostname my-hostname \
+--add-host other-hostname:ip
+image-name
+```
+
+## Reference
+
+- [Docker from the beginning — part III](https://dev.to/softchris/docker-from-the-beginningpart-iii-2h51)

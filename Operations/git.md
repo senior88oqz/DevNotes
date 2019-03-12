@@ -57,5 +57,5 @@ ssh-add ~/.ssh/id_rsa
 
 ## Reference
 
-[https://dev.to/ryan_c_harris/3-steps-to-getting-started-with-open-source-4f37](3 Steps to Getting Started with Open Source)
-[https://www.atlassian.com/git/tutorials/syncing](Handy git guide from Atlassian)
+- [3 Steps to Getting Started with Open Source](https://dev.to/ryan_c_harris/3-steps-to-getting-started-with-open-source-4f37)
+- [Handy git guide from Atlassian](https://www.atlassian.com/git/tutorials/syncing)

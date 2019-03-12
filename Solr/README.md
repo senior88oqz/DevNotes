@@ -49,6 +49,12 @@ solr zk upconfig -n montebello_conf -d montebello_conf -z 127.0.0.1:9983
 curl -X POST --header "Content-Type:application/octet-stream" --data-binary @myconfigset.zip "http://localhost:8983/solr/admin/configs?action=UPLOAD&name=myConfigSet"
 ```
 
+* Reload ConfigSets
+
+```bash
+curl -s "http://localhost:8983/solr/admin/collections?action=RELOAD&name=$_collection_name"
+```
+
 **NOTE** : The zip file must be created from within the conf directory (i.e. the solrconfig.xml must be the top level entry in the zip file).
 
 ## Containerization

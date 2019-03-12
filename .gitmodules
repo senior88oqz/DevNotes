@@ -1,3 +1,6 @@
 [submodule "NGINX/server-configs-nginx"]
 	path = NGINX/server-configs-nginx
 	url = git@github.com:h5bp/server-configs-nginx.git
+[submodule "Operations/Tools/code-server"]
+	path = Operations/Tools/code-server
+	url = git@github.com:codercom/code-server.git
